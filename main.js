@@ -61,7 +61,7 @@ const createCellPane = () => {
       card.classList.add("card");
       card.innerHTML = `
         <div class="card-title">Cell ${i + 1}</div>
-        <div class="card-value cell-${i}">${volts.toFixed(2)} V</div>
+        <div class="card-value cell-${i}">${volts.toFixed(3)} V</div>
       `;
       if (!existingCard) {
         cardsContainer.appendChild(card);
