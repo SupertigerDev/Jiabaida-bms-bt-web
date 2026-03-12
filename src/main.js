@@ -1,3 +1,4 @@
+import "./style.css";
 import { createConnection } from "./createConnection.js";
 import { createWattHourTracker } from "./utils.js";
 
