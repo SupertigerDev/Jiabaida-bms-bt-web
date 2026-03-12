@@ -1,0 +1,24 @@
+{
+  "name": "",
+  "short_name": "",
+  "description": "",
+  "display": "fullscreen",
+  "start_url": "/Jiabaida-bms-bt-web/",
+  "scope": "/",
+  "orientation": "any",
+  "id": "supertger-jbd-web",
+  "lang": "en",
+  "dir": "auto",
+  "icons": [],
+  "screenshots": [],
+  "categories": [
+    "utilities"
+  ],
+  "protocol_handlers": [],
+  "related_applications": [],
+  "display_override": [],
+  "share_target": null,
+  "launch_handler": null,
+  "shortcuts": [],
+  "iarc_rating_id": ""
+}
