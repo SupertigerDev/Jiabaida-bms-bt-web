@@ -1,7 +1,7 @@
 {
-  "name": "",
-  "short_name": "",
-  "description": "",
+  "name": "JBD BMS BT Web",
+  "short_name": "JBD BMS",
+  "description": "Connect to your JBD BMS via Bluetooth.",
   "display": "fullscreen",
   "start_url": "/Jiabaida-bms-bt-web/",
   "scope": "/",
@@ -18,7 +18,9 @@
   "related_applications": [],
   "display_override": [],
   "share_target": null,
-  "launch_handler": null,
+  "launch_handler": {
+    "client_mode": ["focus-existing", "auto"]
+  },
   "shortcuts": [],
   "iarc_rating_id": ""
 }
