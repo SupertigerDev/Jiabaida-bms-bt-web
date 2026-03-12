@@ -11,5 +11,6 @@ export default defineConfig({
         nested
       ]
     }
-  }
+  },
+  base: "/Jiabaida-bms-bt-web/"
 });
