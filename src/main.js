@@ -138,6 +138,7 @@ const createBatteryStatusPane = () => {
     percent,
     charging,
     hhmmRemaining,
+    HHMMRemaining80,
     current,
     capacity,
     voltage,
@@ -149,21 +150,23 @@ const createBatteryStatusPane = () => {
     batteryLevel.style.width = `${percent}%`;
 
     const batteryLevelPercentage = element.querySelector(
-      ".battery-info .battery-level-percentage"
+      ".battery-info .battery-level-percentage",
     );
     batteryLevelPercentage.textContent = `${percent}%`;
 
     const batteryState = element.querySelector(".battery-info .battery-state");
     if (current !== 0) {
-      batteryState.textContent = `${
-        charging ? "Charged in" : "Discharging in"
-      } ${hhmmRemaining}`;
+      if (charging) {
+        batteryState.textContent = `100% in ${hhmmRemaining}\n80% in ${HHMMRemaining80}`;
+      } else {
+        batteryState.textContent = `"Discharging in ${hhmmRemaining}`;
+      }
     } else {
       batteryState.textContent = "Idle";
     }
 
     const lastUpdatedTime = element.querySelector(
-      ".last-updated-container .last-updated-time"
+      ".last-updated-container .last-updated-time",
     );
     lastUpdatedTime.textContent = new Intl.DateTimeFormat("en-GB", {
       dateStyle: "short",
@@ -196,9 +199,32 @@ const createBatteryStatusPane = () => {
   };
 };
 
+const createFullscreenButton = () => {
+  const fullscreenButton = document.getElementById("fullscreen-button");
+  fullscreenButton.id = "fullscreen-button";
+  fullscreenButton.textContent = "Fullscreen";
+
+  document.onfullscreenchange = () => {
+    if (document.fullscreenElement) {
+      fullscreenButton.style.display = "none";
+    } else {
+      fullscreenButton.style.display = "block";
+    }
+  };
+
+  fullscreenButton.addEventListener("click", () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  });
+};
+
 const batteryStatusPane = createBatteryStatusPane();
 const cellPane = createCellPane();
 const temperaturePane = createTemperaturePane();
+createFullscreenButton();
 
 conn.onData((info) => {
   const { batteryInfo, cellVolts } = info;
@@ -210,6 +236,7 @@ conn.onData((info) => {
     charging: batteryInfo.charging,
     current: batteryInfo.current,
     hhmmRemaining: batteryInfo.HHMMRemaining,
+    HHMMRemaining80: batteryInfo.HHMMRemaining80,
     capacity: batteryInfo.remainingCapacityAh,
     voltage: batteryInfo.totalVolts,
     power: batteryInfo.current * batteryInfo.totalVolts,

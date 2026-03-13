@@ -106,6 +106,7 @@ export const createConnection = () => {
    * discharging: boolean,
    * secondsRemaining: number
    * HHMMRemaining: string
+   * HHMMRemaining80: string
    * },
    * cellVolts: number[],
    * }) => void} cb
@@ -169,13 +170,26 @@ function formatBatteryInfo(data) {
   } else if (discharging) {
     secondsRemaining = (remainingCapacityAh / Math.abs(current)) * 3600;
   }
+
+  const eightyPercentAh = (nominalCapacityAh * 80) / 100;
+  let secondsRemainingEightyPercent;
+  if (charging) {
+    secondsRemainingEightyPercent =
+      ((nominalCapacityAh - eightyPercentAh) / Math.abs(current)) * 3600;
+  } else if (discharging) {
+    secondsRemainingEightyPercent =
+      (eightyPercentAh / Math.abs(current)) * 3600;
+  }
+
   const HHMMRemaining = convertSecondsToHHMM(secondsRemaining);
+  const HHMMRemaining80 = convertSecondsToHHMM(secondsRemainingEightyPercent);
 
   return {
     charging,
     discharging,
     secondsRemaining,
     HHMMRemaining,
+    HHMMRemaining80,
     totalVolts,
     remainingCapacityAh,
     current,

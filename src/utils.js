@@ -88,7 +88,7 @@ export function createWattHourTracker() {
     const intervalWattHours = currentWatts * timeElapsedHours;
 
     // Add the new watt-hours to the total
-    totalWattHours += intervalWattHours;
+    totalWattHours -= intervalWattHours;
 
     // Update the timestamp for the next calculation
     lastUpdateTime = currentTime;
